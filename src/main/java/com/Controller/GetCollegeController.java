@@ -19,11 +19,7 @@ public class GetCollegeController extends HttpServlet {
 			new Department("college2",Arrays.asList("B.COM", "B.SC Maths","B.A","B.TEch")),
 			new Department("college3",Arrays.asList("DataScience", "AI","Cyber Security","BlockChain")));
 	
-    
-    List <String> college1_filled = Arrays.asList("ECE", "EEE");
-    List <String> college2_filled = Arrays.asList("B.COM", "B.SC Maths");
-    List <String> college3_filled = Arrays.asList( "DataScience", "AI"); 
-	
+   
      
     public GetCollegeController() {
         super();
@@ -33,10 +29,6 @@ public class GetCollegeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
 		  request.setAttribute("collegeName",dep);
-		  
-	    request.setAttribute("collegeName1",college1_filled);
-	    request.setAttribute("collegeName2",college2_filled);
-	    request.setAttribute("collegeName3",college3_filled);
 	    
 		RequestDispatcher requ = request.getRequestDispatcher("collegeList.jsp");
 		requ.forward(request, response);
