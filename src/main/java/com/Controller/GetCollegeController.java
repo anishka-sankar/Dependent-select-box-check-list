@@ -15,10 +15,12 @@ import Model.Department;
 
 public class GetCollegeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	List<Department> dep=Arrays.asList(new Department("college1",Arrays.asList("ECE","EEE","CS","IT","MECH")), 
-			new Department("college2",Arrays.asList("B.COM", "B.SC Maths","B.A","B.TEch")),
-			new Department("college3",Arrays.asList("DataScience", "AI","Cyber Security","BlockChain")));
-	
+	List<Department> dep=Arrays.asList(new Department("college1",Arrays.asList("ECE","EEE")), 
+			new Department("college2",Arrays.asList("CS","IT")),
+			new Department("college3",Arrays.asList("CS","IT","MECH")));
+	List<String>  department= Arrays.asList("ECE","EEE","CS","IT","MECH");
+		List<String> col1=Arrays.asList("ECE","EEE");
+			
    
      
     public GetCollegeController() {
@@ -29,7 +31,8 @@ public class GetCollegeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
 		  request.setAttribute("collegeName",dep);
-	    
+		  request.setAttribute("depName",department);
+		  request.setAttribute("col1",col1);
 		RequestDispatcher requ = request.getRequestDispatcher("collegeList.jsp");
 		requ.forward(request, response);
 	}

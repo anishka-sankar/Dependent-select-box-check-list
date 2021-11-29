@@ -28,46 +28,61 @@ select {
 
 <script type="text/javascript">
         function displayAccordingly() {
-        	<% List<Department> college_list1=(List<Department>) request.getAttribute("collegeName"); %>
+        	<% List<Department> college_list1=(List<Department>) request.getAttribute("collegeName"); 
+        	List<String> dep_list=(List<String>) request.getAttribute("depName"); %>
         	 
         	var myVar = [<% for (int i = 0; i < college_list1.size(); i++) { %>"<%= college_list1.get(i).getCollege() %>"<%= i + 1 < college_list1.size() ? ",":"" %><% } %>];
         	var myVar1 = [<% for (int i = 0; i < college_list1.get(0).getDep().size(); i++) { %>"<%= college_list1.get(0).getDep().get(i) %>"<%= i + 1 < college_list1.get(0).getDep().size() ? ",":"" %><% } %>];
         	var myVar2 = [<% for (int i = 0; i < college_list1.get(1).getDep().size(); i++) { %>"<%= college_list1.get(1).getDep().get(i) %>"<%= i + 1 < college_list1.get(1).getDep().size() ? ",":"" %><% } %>];
         	var myVar3 = [<% for (int i = 0; i < college_list1.get(2).getDep().size(); i++) { %>"<%= college_list1.get(2).getDep().get(i) %>"<%= i + 1 < college_list1.get(2).getDep().size() ? ",":"" %><% } %>];
+        	var dept=[<% for (int i = 0; i < dep_list.size(); i++) { %>"<%= dep_list.get(i) %>"<%= i + 1 < dep_list.size()? ",":"" %><% } %>];
+        	var x=document.getElementById("college").value;
+        	if(x==myVar[0]){
+        		
+        		for(const val of dept){
+        			var a=document.getElementById(val).value;
+        			
+        			for(const deps of myVar1){
+        				if(val===deps){
+        					//document.write("hi");
+        					document.getElementById(val).disabled = true;
+        				}
+        			}
+        		}
+        	}
         	
-        	  //Call mainMenu the college dropdown menu
-            var mainMenu = document.getElementById('college');
-
-            //Create the new dropdown menu
-            var whereToPut = document.getElementById('myDiv');
-            var newDropdown = document.createElement('select');
-            newDropdown.setAttribute('id',"department");
-            newDropdown.setAttribute('name',"department");
-            whereToPut.appendChild(newDropdown);
-            
-            if (college.value == myVar[0]) { 	
-             	for(const val of myVar1){
-             		 var option1=document.createElement("option");
-                      option1.text=val;
-                      newDropdown.appendChild(option1);
-             	}
-             }  
-            
-            if (college.value == myVar[1]) { 	
-             	for(const val of myVar2){
-             		 var option1=document.createElement("option");
-                      option1.text=val;
-                      newDropdown.appendChild(option1);
-             	}
-             }  
-            
-            if (college.value == myVar[2]) { 	
-             	for(const val of myVar3){
-             		 var option1=document.createElement("option");
-                      option1.text=val;
-                      newDropdown.appendChild(option1);
-             	}
-             }              
+        	else if(x==myVar[1]){
+        		
+        		for(const val of dept){
+        			var a=document.getElementById(val).value;
+        			
+        			for(const deps of myVar2){
+        				if(val===deps){
+        					//document.write("hi");
+        					document.getElementById(val).disabled = true;
+        				}
+        			}
+        		}
+        	}
+        	
+        	
+        	else if(x==myVar[2]){
+	
+				for(const val of dept){
+				var a=document.getElementById(val).value;
+		
+					for(const deps of myVar3){
+						if(val===deps){
+							//document.write("hi");
+						document.getElementById(val).disabled = true;
+			}
+		}
+	}
+}
+ 
+        	else{
+        		document.write("Select an option");
+        	}
         }
     </script>
     
@@ -75,9 +90,13 @@ select {
 </head>
 
 <body>
+
+
 <form method="post">
 <% 
 List<Department> college_list=(List<Department>) request.getAttribute("collegeName");
+List<String> dep_list1=(List<String>) request.getAttribute("depName");
+List<String> col1=(List<String>) request.getAttribute("col1");
 %>
 
 <select name="college" id="college" onchange="displayAccordingly()" >
@@ -87,6 +106,14 @@ for (int i=0;i<college_list.size();i++)
 out.println("<option value="+college_list.get(i).getCollege()+">"+college_list.get(i).getCollege()+"</option>");
 %>
 </select>
+<br/>
+<br/>
+<% for(int i=0;i<dep_list1.size();i++) { %>
+<input type="checkbox" id=<%=dep_list1.get(i)%> name="cb" value=<%=dep_list1.get(i)%> >
+
+<label for="l1"><%=dep_list1.get(i)%></label><br>
+<%}%>
+
 <br/>
 <div id="myDiv"></div>
 <input type="submit" value="submit" />
